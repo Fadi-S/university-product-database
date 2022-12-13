@@ -40,7 +40,7 @@ public class AddProductScreen extends JFrame implements Page {
 
                     return Arrays.asList(new String[]{
                             "png", "jpg", "jpeg", "gif"
-                    }).contains(extension);
+                    }).contains(extension) || file.isDirectory();
                 }
 
                 @Override
@@ -56,7 +56,9 @@ public class AddProductScreen extends JFrame implements Page {
                 try {
                     BufferedImage myPicture = ImageIO.read(picture);
                     JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+                    picLabel.setSize(300, 300);
                     picturePanel.removeAll();
+                    picturePanel.setSize(300, 300);
                     picturePanel.add(picLabel);
                 } catch (IOException ignored) {}
             }
@@ -64,7 +66,7 @@ public class AddProductScreen extends JFrame implements Page {
 
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
-            String price = nameField.getText();
+            String price = priceField.getText();
 
             AddProductViewModel addProduct = new AddProductViewModel(name, price, picture);
             if(addProduct.validateAndAdd()) {
@@ -73,7 +75,7 @@ public class AddProductScreen extends JFrame implements Page {
                 return;
             }
 
-            JOptionPane.showMessageDialog(this, "Please fill all fields");
+            JOptionPane.showMessageDialog(this, "Data you entered is invalid");
         });
     }
 

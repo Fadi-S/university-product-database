@@ -39,7 +39,7 @@ public class AddProductViewModel {
             return false;
         }
 
-        if(picture.isDirectory() || !picture.exists()) {
+        if(picture == null || picture.isDirectory() || !picture.exists()) {
             return false;
         }
 

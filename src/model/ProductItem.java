@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ProductItem {
@@ -34,8 +35,8 @@ public class ProductItem {
         return priceInCents / 100.;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public File getPicture() {
+        return new File(picturePath);
     }
 
     public boolean create() {
@@ -63,8 +64,7 @@ public class ProductItem {
         return products;
     }
 
-    public static boolean createTableIfNotExist() {
+    public static void createTableIfNotExist() {
         // Create table in database
-        return false;
     }
 }
