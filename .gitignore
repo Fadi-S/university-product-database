@@ -28,6 +28,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-./database1.db
-./images
-./images/*
+/database1.db
+/images
+/images/*
