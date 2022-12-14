@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce740665-59b2-4a2b-b2ee-068303b0567e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a086f3a-9a72-464e-abd6-822c5dbe9be7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a086f3a-9a72-464e-abd6-822c5dbe9be7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44cda558-0c05-417f-a2a8-2bc3f2fe5f78.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/44cda558-0c05-417f-a2a8-2bc3f2fe5f78.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database1.db" beforeDir="false" afterPath="$PROJECT_DIR$/database1.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ProductItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ProductItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddProductScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AddProductScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddProductScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AddProductScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ViewProductScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewProductScreen.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ViewProductScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewProductScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/WelcomeScreen.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/WelcomeScreen.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/viewmodel/AddProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/AddProductViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/viewmodel/ViewProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/ViewProductViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
