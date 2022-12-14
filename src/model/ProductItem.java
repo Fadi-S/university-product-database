@@ -1,6 +1,10 @@
 package model;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ProductItem {
@@ -40,31 +44,82 @@ public class ProductItem {
     }
 
     public boolean create() {
-        if(isSaved) {
+        if (isSaved) {
             return false;
         }
         isSaved = true;
 
         // TODO implements save to database
+        Connection connection ;
+        String str="";
+        try {
+            connection = DataBase.open();
+            if (connection != null) {
+                Statement statement = connection.createStatement();
+                str+="'"+getName()+"',"+this.priceInCents+",'"+getPicture().getPath()+"'";
+                statement.executeUpdate("insert into Products(name, price, picturePath)values ("+str+")");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+
         return true;
     }
 
     public static ProductItem[] getAll() {
+
         // TODO implement get products from database
-        ArrayList<Object> list = new ArrayList<>();
-        ProductItem[] products = new ProductItem[list.size()];
+        Connection connection ;
+        ResultSet list ;
+        try {
+            connection = DataBase.open();
+            if (connection != null) {
+                Statement statement = connection.createStatement();
+                list = statement.executeQuery("select * from Products");
+                ArrayList<ProductItem> products=new ArrayList<>() ;
+                while (list.next()) {
+                    ProductItem productItem=new ProductItem();
+                    productItem.isSaved = true;
+                    productItem.id=list.getInt("id");
+                    productItem.setName(list.getString("name"));
+                    productItem.setPrice(list.getInt("price"));
+                    productItem.setPicturePath(list.getString("picturePath"));
+                 products.add(productItem) ;
 
-        for (int i=0; i < list.size(); i++) {
-            products[i] = new ProductItem();
-            products[i].isSaved = true;
+                }
+                return products.toArray(ProductItem[]::new);
+            }
 
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
             // TODO set fields
+        return null;
         }
 
-        return products;
-    }
+
 
     public static void createTableIfNotExist() {
-        // Create table in database
+        Connection connection = null;
+        try {
+            connection = DataBase.open();
+            if (connection != null) {
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("create table if not exists Products (id INTEGER primary key autoincrement ,name varchar(255),price int,picturePath varchar(255))");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            // connection close failed.
+            System.err.println(e.getMessage());
+        }
     }
 }
+

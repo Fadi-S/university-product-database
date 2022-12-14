@@ -1,17 +1,18 @@
+package model;
+
 import java.sql.*;
 
-public class DataBase
-{
-    private int id;
-    private String name;
-    private String picture;
-    public DataBase(int id ,String name,String picture){
-        this.id=id;
-        this.name=name;
-        this.picture=picture;
+public class DataBase {
+    public static Connection open() {
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:database1.db");
+            return connection;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+          return null ;
+        }
 
     }
-    public static void set()
-    {
-        
 }
