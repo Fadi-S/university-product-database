@@ -30,6 +30,7 @@ public class AddProductViewModel {
             String filename = picture.getName();
             File newPath = new File(new File(".").getCanonicalPath() + "/images/" + filename);
             product.setPicturePath("/images/" + filename);
+            newPath.mkdirs();
 
             Files.copy(picture.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
