@@ -5,6 +5,7 @@ import viewmodel.AddProductViewModel;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +25,17 @@ public class AddProductScreen extends JFrame implements Page {
     public AddProductScreen() {
         this.setContentPane(panel);
 
+        JRootPane rootPane = SwingUtilities.getRootPane(panel);
+        rootPane.setDefaultButton(submitButton);
+
         browseButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
 
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File file) {
+                    if(file.isDirectory()) return true;
+
                     String filename = file.getName();
                     String extension = Optional.of(filename)
                             .filter(f -> f.contains("."))
@@ -40,7 +46,7 @@ public class AddProductScreen extends JFrame implements Page {
 
                     return Arrays.asList(new String[]{
                             "png", "jpg", "jpeg", "gif"
-                    }).contains(extension) || file.isDirectory();
+                    }).contains(extension);
                 }
 
                 @Override
@@ -55,11 +61,11 @@ public class AddProductScreen extends JFrame implements Page {
                 picture = fileChooser.getSelectedFile();
                 try {
                     BufferedImage myPicture = ImageIO.read(picture);
-                    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-                    picLabel.setSize(300, 300);
-                    picturePanel.removeAll();
-                    picturePanel.setSize(300, 300);
+                    Image image = myPicture.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+                    JLabel picLabel = new JLabel(new ImageIcon(image));
+                    picturePanel.setSize(60, 60);
                     picturePanel.add(picLabel);
+                    picturePanel.updateUI();
                 } catch (IOException ignored) {}
             }
         });

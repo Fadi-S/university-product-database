@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +28,16 @@ public class ProductItem {
         this.priceInCents = (int) Math.round(price * 100);
     }
 
+    public void setPriceInCents(int price) {
+        this.priceInCents = price;
+    }
+
     public int getId() {
         return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -39,8 +48,20 @@ public class ProductItem {
         return priceInCents / 100.;
     }
 
+    public double getPriceInCents() {
+        return priceInCents;
+    }
+
     public File getPicture() {
-        return new File(picturePath);
+        try {
+            return new File(new File(".").getCanonicalPath() + picturePath);
+        }catch (IOException e) {
+            return null;
+        }
+    }
+
+    public String getPicturePath() {
+        return this.picturePath;
     }
 
     public boolean create() {
@@ -56,7 +77,7 @@ public class ProductItem {
             connection = DataBase.open();
             if (connection != null) {
                 Statement statement = connection.createStatement();
-                str+="'"+getName()+"',"+this.priceInCents+",'"+getPicture().getPath()+"'";
+                str+="'"+getName()+"',"+this.getPriceInCents()+",'"+getPicturePath()+"'";
                 statement.executeUpdate("insert into Products(name, price, picturePath)values ("+str+")");
             }
 
@@ -82,9 +103,9 @@ public class ProductItem {
                 while (list.next()) {
                     ProductItem productItem=new ProductItem();
                     productItem.isSaved = true;
-                    productItem.id=list.getInt("id");
+                    productItem.setId(list.getInt("id"));
                     productItem.setName(list.getString("name"));
-                    productItem.setPrice(list.getInt("price"));
+                    productItem.setPriceInCents(list.getInt("price"));
                     productItem.setPicturePath(list.getString("picturePath"));
                  products.add(productItem) ;
 

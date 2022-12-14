@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Stack;
@@ -17,7 +18,8 @@ public class Navigator {
 
         JFrame frame = page.getFrame();
         frame.setVisible(true);
-        frame.setSize(400, 500);
+        frame.pack();
+        frame.setMinimumSize(new Dimension(550, 500));
 
         if(page.closable()) {
             frame.addWindowListener(new WindowAdapter() {

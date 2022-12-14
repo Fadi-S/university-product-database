@@ -3,6 +3,9 @@ package viewmodel;
 import model.ProductItem;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class AddProductViewModel {
 
@@ -16,14 +19,23 @@ public class AddProductViewModel {
         this.picture = picture;
     }
 
-    public boolean validateAndAdd() {
+    public boolean validateAndAdd()  {
         if(! isValid()) return false;
 
         ProductItem product = new ProductItem();
 
         product.setName(name);
         product.setPrice(Double.parseDouble(price));
-        product.setPicturePath(picture.getPath());
+        try {
+            String filename = picture.getName();
+            File newPath = new File(new File(".").getCanonicalPath() + "/images/" + filename);
+            product.setPicturePath("/images/" + filename);
+
+            Files.copy(picture.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
         return product.create();
     }
@@ -34,7 +46,10 @@ public class AddProductViewModel {
         }
 
         try {
-            Double.parseDouble(price);
+            double priceDouble = Double.parseDouble(this.price);
+            if(priceDouble <= 0) {
+                return false;
+            }
         }catch (NumberFormatException e) {
             return false;
         }
