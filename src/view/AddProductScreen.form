@@ -60,8 +60,8 @@
       </component>
       <grid id="509e9" binding="picturePanel" layout-manager="GridBagLayout">
         <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="1" use-parent-layout="false">
-            <preferred-size width="40" height="40"/>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="3" indent="1" use-parent-layout="false">
+            <preferred-size width="80" height="80"/>
           </grid>
         </constraints>
         <properties/>
@@ -72,7 +72,7 @@
       </grid>
       <component id="d50ea" class="javax.swing.JButton" binding="submitButton" default-binding="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Submit"/>

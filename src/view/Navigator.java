@@ -19,7 +19,6 @@ public class Navigator {
         JFrame frame = page.getFrame();
         frame.setVisible(true);
         frame.pack();
-        frame.setMinimumSize(new Dimension(550, 500));
 
         if(page.closable()) {
             frame.addWindowListener(new WindowAdapter() {

@@ -49,17 +49,13 @@ public class AddProductViewModel {
         try {
             double priceDouble = Double.parseDouble(this.price);
             if(priceDouble <= 0) {
-                return false;
+                throw new NumberFormatException();
             }
         }catch (NumberFormatException e) {
             return false;
         }
 
-        if(picture == null || picture.isDirectory() || !picture.exists()) {
-            return false;
-        }
-
-        return true;
+        return picture != null && !picture.isDirectory() && picture.exists();
     }
 
 }

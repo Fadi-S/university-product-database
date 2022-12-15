@@ -5,6 +5,7 @@ import viewmodel.ViewProductViewModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class ViewProductScreen extends JFrame implements Page {
     public ViewProductScreen() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(panel);
+        this.setMinimumSize(new Dimension(550, 500));
 
         addProductButton.addActionListener(e -> Navigator.goTo(new AddProductScreen()));
 
@@ -33,35 +35,32 @@ public class ViewProductScreen extends JFrame implements Page {
         layout.setColumns(3);
         layout.setRows(products.length / 3  + 1);
         productsPanel.setLayout(layout);
-        productsPanel.setAutoscrolls(true);
+        productsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         for (ProductItem product : products) {
-            GridLayout panelLayout = new GridLayout();
-            panelLayout.setColumns(1);
-            panelLayout.setRows(4);
-            Panel productPanel = new Panel();
-            productPanel.setLayout(panelLayout);
+            JPanel productPanel = new JPanel();
+
+            BoxLayout productLayout = new BoxLayout(productPanel, BoxLayout.Y_AXIS);
+            productPanel.setLayout(productLayout);
             productPanel.setBackground(Color.white);
+            productPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-            JLabel id = new JLabel("#" + product.getId());
-            productPanel.add(id);
-
-            JLabel name = new JLabel(product.getName());
-            name.setForeground(Color.black);
-            productPanel.add(name);
-
-            JLabel price = new JLabel("$" + product.getPrice());
-            price.setForeground(Color.black);
-            productPanel.add(price);
-
-            productPanel.setSize(80, 80);
+            JLabel title = new JLabel("#" + product.getId() + " - " + product.getName());
+            title.setFont(new Font("Ariel", Font.PLAIN, 16));
+            productPanel.add(title);
+            productPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
             try {
-                BufferedImage myPicture = ImageIO.read(product.getPicture());
-                Image image = myPicture.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-                JLabel picLabel = new JLabel(new ImageIcon(image));
-                productPanel.setSize(60, 60);
-                productPanel.add(picLabel);
+                BufferedImage bufferedImage = ImageIO.read(product.getPicture());
+                Image image = bufferedImage.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+                productPanel.add(new JLabel(new ImageIcon(image)));
+
+                productPanel.add(Box.createRigidArea(new Dimension(0, 15)));
             } catch (IOException ignored) {}
+
+            JLabel price = new JLabel("$" + product.getPrice());
+            price.setFont(new Font("Ariel", Font.BOLD, 20));
+            productPanel.add(price);
 
             productsPanel.add(productPanel);
         }

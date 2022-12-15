@@ -55,7 +55,7 @@ public class ProductItem {
     public File getPicture() {
         try {
             return new File(new File(".").getCanonicalPath() + picturePath);
-        }catch (IOException e) {
+        } catch (IOException e) {
             return null;
         }
     }
@@ -70,75 +70,64 @@ public class ProductItem {
         }
         isSaved = true;
 
-        // TODO implements save to database
-        Connection connection ;
-        String str="";
         try {
-            connection = DataBase.open();
-            if (connection != null) {
-                Statement statement = connection.createStatement();
-                str+="'"+getName()+"',"+this.getPriceInCents()+",'"+getPicturePath()+"'";
-                statement.executeUpdate("insert into Products(name, price, picturePath)values ("+str+")");
-            }
+            Connection connection = Database.open();
+            if (connection == null) return false;
+            Statement statement = connection.createStatement();
+            String str = "'" + getName() + "'," + this.getPriceInCents() + ",'" + getPicturePath() + "'";
+            statement.executeUpdate("insert into Products(name, price, picturePath) values (" + str + ")");
 
+            return true;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+
+            return false;
         }
-
-
-        return true;
     }
 
     public static ProductItem[] getAll() {
-
-        // TODO implement get products from database
-        Connection connection ;
-        ResultSet list ;
         try {
-            connection = DataBase.open();
-            if (connection != null) {
-                Statement statement = connection.createStatement();
-                list = statement.executeQuery("select * from Products");
-                ArrayList<ProductItem> products=new ArrayList<>() ;
-                while (list.next()) {
-                    ProductItem productItem=new ProductItem();
-                    productItem.isSaved = true;
-                    productItem.setId(list.getInt("id"));
-                    productItem.setName(list.getString("name"));
-                    productItem.setPriceInCents(list.getInt("price"));
-                    productItem.setPicturePath(list.getString("picturePath"));
-                 products.add(productItem) ;
+            Connection connection = Database.open();
+            if (connection == null) return new ProductItem[0];
 
-                }
-                return products.toArray(ProductItem[]::new);
+            Statement statement = connection.createStatement();
+            ResultSet productsSet = statement.executeQuery("select * from Products");
+            ArrayList<ProductItem> products = new ArrayList<>();
+            while (productsSet.next()) {
+                ProductItem productItem = new ProductItem();
+                productItem.isSaved = true;
+                productItem.setId(productsSet.getInt("id"));
+                productItem.setName(productsSet.getString("name"));
+                productItem.setPriceInCents(productsSet.getInt("price"));
+                productItem.setPicturePath(productsSet.getString("picturePath"));
+                products.add(productItem);
             }
 
+            return products.toArray(ProductItem[]::new);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-            // TODO set fields
-        return null;
-        }
 
+        return new ProductItem[0];
+    }
 
 
     public static void createTableIfNotExist() {
-        Connection connection = null;
         try {
-            connection = DataBase.open();
-            if (connection != null) {
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("create table if not exists Products (id INTEGER primary key autoincrement ,name varchar(255),price int,picturePath varchar(255))");
-            }
+            Connection connection = Database.open();
+            if (connection == null) return;
 
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(
+                    "create table if not exists Products (" +
+                            "id INTEGER primary key autoincrement," +
+                            " name varchar(255)," +
+                            "price int," +
+                            "picturePath varchar(255)" +
+                            ")"
+            );
+            connection.close();
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
-        try {
-            if (connection != null)
-                connection.close();
-        } catch (SQLException e) {
-            // connection close failed.
             System.err.println(e.getMessage());
         }
     }
