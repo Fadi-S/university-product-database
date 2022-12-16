@@ -31,29 +31,33 @@ public class AddProductViewModel{
 
         product.setName(name);
         product.setPrice(Double.parseDouble(price));
+
+        String path = this.saveImage(picture);
+        if(path != null) {
+            product.setPicturePath(path);
+        }
+
+        return product.create();
+    }
+
+    private String saveImage(File img) {
         try {
             String filename = picture.getName();
             File newPath = new File(new File(".").getCanonicalPath() + "/images/" + filename);
             newPath.mkdirs();
 
             ImageIcon imageIcon = new ImageIcon(picture.getPath());
-            BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_RGB);
+            BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2d = bi.createGraphics();
             g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-
             g2d.drawImage(imageIcon.getImage(), 0, 0, 120, 120, null);
 
             ImageIO.write(bi, filename.substring(filename.lastIndexOf(".") + 1), newPath);
 
-            product.setPicturePath("/images/" + filename);
-
-//            Files.copy(picture.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return false;
+            return "/images/" + filename;
+        }catch (IOException e) {
+            return null;
         }
-
-        return product.create();
     }
 
     public boolean isValid() {

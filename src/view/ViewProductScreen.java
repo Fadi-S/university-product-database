@@ -1,6 +1,6 @@
 package view;
 
-import model.Model;
+import interfaces.Model;
 import model.ProductItem;
 import viewmodel.ViewProductViewModel;
 

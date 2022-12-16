@@ -1,5 +1,6 @@
 package model;
 
+import interfaces.Model;
 import interfaces.ModelChangedListener;
 
 import java.io.File;
