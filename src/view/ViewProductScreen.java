@@ -1,5 +1,6 @@
 package view;
 
+import model.Model;
 import model.ProductItem;
 import viewmodel.ViewProductViewModel;
 
@@ -9,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ViewProductScreen extends JFrame implements Page {
 
@@ -16,54 +18,76 @@ public class ViewProductScreen extends JFrame implements Page {
     private JButton addProductButton;
     private JPanel productsPanel;
 
+    private ArrayList<ProductItem> products ;
+
     public ViewProductScreen() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(panel);
-        this.setMinimumSize(new Dimension(550, 500));
+        this.setMinimumSize(new Dimension(700, 500));
 
         addProductButton.addActionListener(e -> Navigator.goTo(new AddProductScreen()));
 
-        ProductItem[] products = new ViewProductViewModel().get();
+        this.render(null);
 
-        if(products.length == 0) {
+        ProductItem.addListener(this::render);
+    }
+
+    private void render(Model model) {
+        if(model == null) {
+            productsPanel.removeAll();
+            products = new ViewProductViewModel().get();
+            renderProducts();
+            return;
+        }
+
+        products.add((ProductItem) model);
+        renderProducts();
+    }
+
+    private void renderProducts() {
+        productsPanel.removeAll();
+        if(products.size() == 0) {
             productsPanel.add(new JLabel("No products available"));
+
+            return;
         }
 
         GridLayout layout = new GridLayout();
         layout.setVgap(20);
         layout.setHgap(20);
         layout.setColumns(3);
-        layout.setRows(products.length / 3  + 1);
+        layout.setRows((int) Math.ceil(products.size() / 3.));
         productsPanel.setLayout(layout);
         productsPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        for (ProductItem product : products) {
-            JPanel productPanel = new JPanel();
+        products.forEach(this::product);
+    }
 
-            BoxLayout productLayout = new BoxLayout(productPanel, BoxLayout.Y_AXIS);
-            productPanel.setLayout(productLayout);
-            productPanel.setBackground(Color.white);
-            productPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+    private void product(ProductItem product) {
+        JPanel productPanel = new JPanel();
 
-            JLabel title = new JLabel("#" + product.getId() + " - " + product.getName());
-            title.setFont(new Font("Ariel", Font.PLAIN, 16));
-            productPanel.add(title);
-            productPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        BoxLayout productLayout = new BoxLayout(productPanel, BoxLayout.Y_AXIS);
+        productPanel.setLayout(productLayout);
+        productPanel.setBackground(Color.white);
+        productPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-            try {
-                BufferedImage bufferedImage = ImageIO.read(product.getPicture());
-                Image image = bufferedImage.getScaledInstance(120, 120, Image.SCALE_SMOOTH);
-                productPanel.add(new JLabel(new ImageIcon(image)));
+        JLabel title = new JLabel("#" + product.getId() + " - " + product.getName());
+        title.setFont(new Font("Ariel", Font.PLAIN, 16));
+        productPanel.add(title);
+        productPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-                productPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-            } catch (IOException ignored) {}
+        try {
+            BufferedImage bufferedImage = ImageIO.read(product.getPicture());
+            productPanel.add(new JLabel(new ImageIcon(bufferedImage)));
 
-            JLabel price = new JLabel("$" + product.getPrice());
-            price.setFont(new Font("Ariel", Font.BOLD, 20));
-            productPanel.add(price);
+            productPanel.add(Box.createRigidArea(new Dimension(0, 15)));
+        } catch (IOException ignored) {}
 
-            productsPanel.add(productPanel);
-        }
+        JLabel price = new JLabel("$" + product.getPrice());
+        price.setFont(new Font("Ariel", Font.BOLD, 20));
+        productPanel.add(price);
+
+        productsPanel.add(productPanel);
     }
 
     @Override

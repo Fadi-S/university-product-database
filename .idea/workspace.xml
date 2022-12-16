@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce740665-59b2-4a2b-b2ee-068303b0567e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/03383615-122f-4bb7-9895-94d17c63a0a0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/03383615-122f-4bb7-9895-94d17c63a0a0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a086f3a-9a72-464e-abd6-822c5dbe9be7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a086f3a-9a72-464e-abd6-822c5dbe9be7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2c838d49-009c-4631-aab4-010a767343c0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2c838d49-009c-4631-aab4-010a767343c0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/44cda558-0c05-417f-a2a8-2bc3f2fe5f78.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/44cda558-0c05-417f-a2a8-2bc3f2fe5f78.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e5d317b-d978-4c89-b749-4717dc9347bd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e5d317b-d978-4c89-b749-4717dc9347bd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/interfaces/ModelChangedListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database1.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/DataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.db" beforeDir="false" afterPath="$PROJECT_DIR$/database.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/ProductItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ProductItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/AddProductScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AddProductScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/AddProductScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/AddProductScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/ViewProductScreen.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewProductScreen.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/ViewProductScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ViewProductScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/viewmodel/AddProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/AddProductViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/viewmodel/ViewProductViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/viewmodel/ViewProductViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +25,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -118,7 +110,7 @@
       <workItem from="1670867703069" duration="349000" />
       <workItem from="1670879300282" duration="9583000" />
       <workItem from="1670968522654" duration="10506000" />
-      <workItem from="1671103759600" duration="5873000" />
+      <workItem from="1671103759600" duration="13895000" />
     </task>
     <servers />
   </component>

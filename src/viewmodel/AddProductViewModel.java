@@ -2,12 +2,17 @@ package viewmodel;
 
 import model.ProductItem;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
-public class AddProductViewModel {
+public class AddProductViewModel{
 
     String name;
     String price;
@@ -29,10 +34,20 @@ public class AddProductViewModel {
         try {
             String filename = picture.getName();
             File newPath = new File(new File(".").getCanonicalPath() + "/images/" + filename);
-            product.setPicturePath("/images/" + filename);
             newPath.mkdirs();
 
-            Files.copy(picture.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            ImageIcon imageIcon = new ImageIcon(picture.getPath());
+            BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = bi.createGraphics();
+            g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+
+            g2d.drawImage(imageIcon.getImage(), 0, 0, 120, 120, null);
+
+            ImageIO.write(bi, filename.substring(filename.lastIndexOf(".") + 1), newPath);
+
+            product.setPicturePath("/images/" + filename);
+
+//            Files.copy(picture.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return false;

@@ -1,5 +1,7 @@
 package model;
 
+import interfaces.ModelChangedListener;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,13 +10,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ProductItem {
+public class ProductItem implements Model {
+    private static final ArrayList<ModelChangedListener> listeners = new ArrayList<>();
+
     private int id;
     private String name;
     private int priceInCents;
     private String picturePath;
 
     private boolean isSaved = false;
+
+    public static void addListener(ModelChangedListener listener) {
+        listeners.add(listener);
+    }
+
+    public static void removeListener(ModelChangedListener listener) {
+        listeners.remove(listener);
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -76,6 +88,13 @@ public class ProductItem {
             Statement statement = connection.createStatement();
             String str = "'" + getName() + "'," + this.getPriceInCents() + ",'" + getPicturePath() + "'";
             statement.executeUpdate("insert into Products(name, price, picturePath) values (" + str + ")");
+
+            ResultSet set = statement.getGeneratedKeys();
+            if(set.next()) {
+                this.setId(set.getInt(1));
+            }
+
+            listeners.forEach(listener -> listener.createdModel(this));
 
             return true;
         } catch (SQLException e) {

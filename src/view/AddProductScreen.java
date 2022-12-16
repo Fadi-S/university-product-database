@@ -63,6 +63,7 @@ public class AddProductScreen extends JFrame implements Page {
                     BufferedImage myPicture = ImageIO.read(picture);
                     Image image = myPicture.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
                     JLabel picLabel = new JLabel(new ImageIcon(image));
+                    picturePanel.removeAll();
                     picturePanel.add(picLabel);
                     picturePanel.updateUI();
                 } catch (IOException ignored) {}
@@ -75,7 +76,7 @@ public class AddProductScreen extends JFrame implements Page {
 
             AddProductViewModel addProduct = new AddProductViewModel(name, price, picture);
             if(addProduct.validateAndAdd()) {
-                Navigator.goTo(new ViewProductScreen());
+                Navigator.back();
 
                 return;
             }
