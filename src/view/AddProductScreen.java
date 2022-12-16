@@ -61,7 +61,9 @@ public class AddProductScreen extends JFrame implements Page {
                 picture = fileChooser.getSelectedFile();
                 try {
                     BufferedImage myPicture = ImageIO.read(picture);
-                    Image image = myPicture.getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+                    int width = 80;
+                    int height = Math.min(400, width * myPicture.getHeight() / myPicture.getWidth());
+                    Image image = myPicture.getScaledInstance(width, height, Image.SCALE_SMOOTH);
                     JLabel picLabel = new JLabel(new ImageIcon(image));
                     picturePanel.removeAll();
                     picturePanel.add(picLabel);

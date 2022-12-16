@@ -1,6 +1,7 @@
 package view;
 
 import interfaces.Model;
+import interfaces.ModelChangedListener;
 import model.ProductItem;
 import viewmodel.ViewProductViewModel;
 
@@ -8,6 +9,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +37,6 @@ public class ViewProductScreen extends JFrame implements Page {
 
     private void render(Model model) {
         if(model == null) {
-            productsPanel.removeAll();
             products = new ViewProductViewModel().get();
             renderProducts();
             return;

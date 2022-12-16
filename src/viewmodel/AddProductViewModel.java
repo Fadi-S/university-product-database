@@ -8,9 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
 
 public class AddProductViewModel{
 
@@ -32,7 +29,7 @@ public class AddProductViewModel{
         product.setName(name);
         product.setPrice(Double.parseDouble(price));
 
-        String path = this.saveImage(picture);
+        String path = this.saveImage();
         if(path != null) {
             product.setPicturePath(path);
         }
@@ -40,19 +37,24 @@ public class AddProductViewModel{
         return product.create();
     }
 
-    private String saveImage(File img) {
+    private String saveImage() {
         try {
             String filename = picture.getName();
             File newPath = new File(new File(".").getCanonicalPath() + "/images/" + filename);
-            newPath.mkdirs();
+            newPath.getParentFile().mkdirs();
+
+            String extension = filename.substring(filename.lastIndexOf(".") + 1);
 
             ImageIcon imageIcon = new ImageIcon(picture.getPath());
-            BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_ARGB);
+            int width = 120;
+            int height = 120;//Math.min(500, width * imageIcon.getIconHeight() / imageIcon.getIconWidth());
+
+            BufferedImage bi = new BufferedImage(width, height, "png".equals(extension) ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
             Graphics2D g2d = bi.createGraphics();
             g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
-            g2d.drawImage(imageIcon.getImage(), 0, 0, 120, 120, null);
+            g2d.drawImage(imageIcon.getImage(), 0, 0, width, height, null);
 
-            ImageIO.write(bi, filename.substring(filename.lastIndexOf(".") + 1), newPath);
+            ImageIO.write(bi, extension, newPath);
 
             return "/images/" + filename;
         }catch (IOException e) {
